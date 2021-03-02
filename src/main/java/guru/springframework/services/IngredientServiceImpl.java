@@ -9,7 +9,6 @@ import guru.springframework.repositores.RecipeRepository;
 import guru.springframework.repositores.UnitOfMeasureRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -27,11 +26,10 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public Ingredient findById(Long id) {
+    public Ingredient findById(String id) {
         return null;
     }
 
-    @Transactional
     @Override
     public IngredientCommand saveIngredientCommand(IngredientCommand command) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(command.getRecipeId());
@@ -72,13 +70,13 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
 
     }
 
    // @Transactional
     @Override
-    public void deleteById(Long recipeId, Long ingredientId) {
+    public void deleteById(String recipeId, String ingredientId) {
        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
        if (recipe.isPresent()){
           Optional<Ingredient> ingredinent= recipe.get().getIngredients().stream()
@@ -93,7 +91,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientCommand findByRecipeIdAndId(Long recipeId, Long id) {
+    public IngredientCommand findByRecipeIdAndId(String recipeId, String id) {
         Optional<IngredientCommand> ingredientCommand;
         try {
             Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);

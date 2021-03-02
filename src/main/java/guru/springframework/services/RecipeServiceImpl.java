@@ -8,7 +8,6 @@ import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.repositores.RecipeRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -35,7 +34,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe findById(Long id) {
+    public Recipe findById(String id) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
         if (!optionalRecipe.isPresent()) {
             throw new NotFoundException("Recipe not found for Id " + id.toString());
@@ -43,9 +42,8 @@ public class RecipeServiceImpl implements RecipeService {
         return optionalRecipe.get();
     }
 
-    @Transactional
     @Override
-    public RecipeCommand findCommandById(Long id) {
+    public RecipeCommand findCommandById(String id) {
         return recipeToRecipeCommand.convert(findById(id));
     }
 
@@ -59,7 +57,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         try{
             recipeRepository.deleteById(id);
 
